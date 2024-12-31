@@ -50,7 +50,7 @@ const PlacePage = () => {
             <h2 className="text-2xl font-semibold">Description</h2>
             {place.description}
           </div>
-          Max number of guests: {place.maxGuests}
+          {/* Max number of guests: {place.maxGuests} */}
           <PerksWidget perks={place?.perks} />
         </div>
         <div>

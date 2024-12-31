@@ -4,19 +4,32 @@ const Booking = require('../models/Booking');
 exports.createBookings = async (req, res) => {
   try {
     const userData = req.user;
-    const { place, checkIn, checkOut, numOfGuests, name, phone, price } =
+    const { place, checkIn, checkOut,  name, phone, price } =
       req.body;
-
+      const conflictingBooking = await Booking.findOne({
+        place,
+        $or: [
+          { checkIn: { $lte: checkOut }, checkOut: { $gte: checkIn } }, // Overlap condition
+        ],
+      });
+  
+      if (conflictingBooking) {
+        return res.status(400).json({
+          success: false,
+          message: 'The selected dates are unavailable for this place.',
+        });
+      }
     const booking = await Booking.create({
       user: userData.id,
       place,
       checkIn,
       checkOut,
-      numOfGuests,
+      // numOfGuests,
       name,
       phone,
       price,
     });
+
 
     res.status(200).json({
       booking,

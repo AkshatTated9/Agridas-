@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useContext, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
+import AgriConnectImage from '/src/assets/AgriConnectLogo.png'
 import { useAuth } from '../../../hooks';
 import SearchBar from './SearchBar';
 import { Avatar, AvatarImage, AvatarFallback } from '@radix-ui/react-avatar';
@@ -36,7 +37,7 @@ export const Header = () => {
 
   return (
     <header
-      className={`fixed top-0 z-10 flex w-screen justify-center bg-white py-4 ${
+      className={`fixed top-0 z-10 flex w-screen justify-center bg-[#123524] py-4 ${
         hasShadow ? 'shadow-md' : ''
       }`}
     >
@@ -48,12 +49,12 @@ export const Header = () => {
         <a href="/" className="flex items-center gap-1">
           <img
             className="h-8 w-8 md:h-10 md:w-10"
-            src="https://cdn-icons-png.flaticon.com/512/2111/2111320.png"
+            src={AgriConnectImage}
             alt=""
           />
 
-          <span className="hidden text-2xl font-bold text-red-500 md:block">
-            airbnb
+          <span className="hidden text-2xl font-bold text-green-500 md:block">
+            AgriConnect
           </span>
         </a>
 
@@ -65,10 +66,10 @@ export const Header = () => {
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            fill="none"
+            fill="white"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
-            stroke="currentColor"
+            stroke="white"
             className="hidden h-6 w-6 md:block"
           >
             <path
@@ -92,7 +93,7 @@ export const Header = () => {
               </Avatar>
             ) : (
               <svg
-                fill="#858080"
+                fill="white"
                 version="1.1"
                 id="Layer_1"
                 xmlns="http://www.w3.org/2000/svg"
@@ -100,7 +101,7 @@ export const Header = () => {
                 viewBox="796 796 200 200"
                 enableBackground="new 796 796 200 200"
                 xmlSpace="preserve"
-                stroke="#858080"
+                stroke="white"
                 className="h-8 w-8"
               >
                 <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
@@ -117,7 +118,7 @@ export const Header = () => {
           </div>
         </Link>
       </div>
-      <br className="border border-gray-600" />
+      <br className="border border-white-600" />
     </header>
   );
 };
