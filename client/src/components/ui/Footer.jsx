@@ -2,72 +2,72 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <div className="flex  w-full justify-center bg-gray-100 pb-8">
+    <div className="flex w-full justify-center bg-[#123524] pb-8 text-green-500">
       <div className="flex w-full max-w-screen-xl flex-col items-center px-6">
         {/* grid for links */}
-        <div className="grid  w-full grid-cols-1 gap-4 py-8 text-sm md:grid-cols-3 ">
+        <div className="grid w-full grid-cols-1 gap-4 py-8 text-sm md:grid-cols-3">
           <div className="flex flex-col gap-1">
             <strong className="font-medium">Support</strong>
             <p>
-              <span className="cursor-pointer font-normal text-gray-700 decoration-1 underline-offset-1 hover:underline">
+              <span className="cursor-pointer font-normal text-white decoration-1 underline-offset-1 hover:underline">
                 Help Center
               </span>
             </p>
             <p>
-              <span className="cursor-pointer font-normal text-gray-700 decoration-1 underline-offset-1 hover:underline">
+              <span className="cursor-pointer font-normal text-white decoration-1 underline-offset-1 hover:underline">
                 Get help with a safety issue
               </span>
             </p>
             <p>
-              <span className="cursor-pointer font-normal text-gray-700 decoration-1 underline-offset-1 hover:underline">
+              <span className="cursor-pointer font-normal text-white decoration-1 underline-offset-1 hover:underline">
                 Air cover
               </span>
             </p>
             <p>
-              <span className="cursor-pointer font-normal text-gray-700 decoration-1 underline-offset-1 hover:underline">
+              <span className="cursor-pointer font-normal text-white decoration-1 underline-offset-1 hover:underline">
                 Anti-discrimination
               </span>
             </p>
             <p>
-              <span className="cursor-pointer font-normal text-gray-700 decoration-1 underline-offset-1 hover:underline">
-                Disablity support
+              <span className="cursor-pointer font-normal text-white decoration-1 underline-offset-1 hover:underline">
+                Disability support
               </span>
             </p>
             <p>
-              <span className="cursor-pointer font-normal text-gray-700 decoration-1 underline-offset-1 hover:underline">
+              <span className="cursor-pointer font-normal text-white decoration-1 underline-offset-1 hover:underline">
                 Cancellation options
               </span>
             </p>
             <p>
-              <span className="cursor-pointer font-normal text-gray-700 decoration-1 underline-offset-1 hover:underline">
-                Report neighbourhood concern
+              <span className="cursor-pointer font-normal text-white decoration-1 underline-offset-1 hover:underline">
+                Report neighborhood concern
               </span>
             </p>
           </div>
           <div className="flex flex-col gap-1">
             <strong className="font-medium">Hosting</strong>
             <p>
-              <span className="cursor-pointer font-normal text-gray-700 decoration-1 underline-offset-1 hover:underline">
+              <span className="cursor-pointer font-normal text-white decoration-1 underline-offset-1 hover:underline">
                 Airbnb your home
               </span>
             </p>
             <p>
-              <span className="cursor-pointer font-normal text-gray-700 decoration-1 underline-offset-1 hover:underline">
+              <span className="cursor-pointer font-normal text-white decoration-1 underline-offset-1 hover:underline">
                 AirCover for Hosts
               </span>
             </p>
             <p>
-              <span className="cursor-pointer font-normal text-gray-700 decoration-1 underline-offset-1 hover:underline">
+              <span className="cursor-pointer font-normal text-white decoration-1 underline-offset-1 hover:underline">
                 Hosting resources
               </span>
             </p>
             <p>
-              <span className="cursor-pointer font-normal text-gray-700 decoration-1 underline-offset-1 hover:underline">
+              <span className="cursor-pointer font-normal text-white decoration-1 underline-offset-1 hover:underline">
                 Community forum
               </span>
             </p>
             <p>
-              <span className="cursor-pointer font-normal text-gray-700 decoration-1 underline-offset-1 hover:underline">
+              <span className="cursor-pointer font-normal text-white decoration-1 underline-offset-1 hover:underline">
                 Hosting responsibly
               </span>
             </p>
@@ -75,27 +75,27 @@ const Footer = () => {
           <div className="flex flex-col gap-1">
             <strong className="font-medium">Airbnb</strong>
             <p>
-              <span className="cursor-pointer font-normal text-gray-700 decoration-1 underline-offset-1 hover:underline">
+              <span className="cursor-pointer font-normal text-white decoration-1 underline-offset-1 hover:underline">
                 Newsroom
               </span>
             </p>
             <p>
-              <span className="cursor-pointer font-normal text-gray-700 decoration-1 underline-offset-1 hover:underline">
+              <span className="cursor-pointer font-normal text-white decoration-1 underline-offset-1 hover:underline">
                 New features
               </span>
             </p>
             <p>
-              <span className="cursor-pointer font-normal text-gray-700 decoration-1 underline-offset-1 hover:underline">
+              <span className="cursor-pointer font-normal text-white decoration-1 underline-offset-1 hover:underline">
                 Careers
               </span>
             </p>
             <p>
-              <span className="cursor-pointer font-normal text-gray-700 decoration-1 underline-offset-1 hover:underline">
+              <span className="cursor-pointer font-normal text-white decoration-1 underline-offset-1 hover:underline">
                 Investors
               </span>
             </p>
             <p>
-              <span className="cursor-pointer font-normal text-gray-700 decoration-1 underline-offset-1 hover:underline">
+              <span className="cursor-pointer font-normal text-white decoration-1 underline-offset-1 hover:underline">
                 Airbnb.org emergency stays
               </span>
             </p>
@@ -153,20 +153,20 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="flex w-full flex-col gap-2 px-1 font-normal text-gray-700 md:w-auto md:flex-row md:items-center md:gap-8">
+          <div className="flex w-full flex-col gap-2 px-1 font-normal text-white md:w-auto md:flex-row md:items-center md:gap-8">
             <p className="text-sm">&copy; 2023 Airbnb, Inc.</p>
             <div>
-              <ul className=" flex gap-6 text-sm text-gray-700">
-                <li className="cursor-pointer text-gray-700 decoration-1 underline-offset-1 hover:underline md:list-disc">
+              <ul className="flex gap-6 text-sm text-white">
+                <li className="cursor-pointer decoration-1 underline-offset-1 hover:underline md:list-disc">
                   Privacy
                 </li>
-                <li className="cursor-pointer list-disc text-gray-700 decoration-1 underline-offset-1 hover:underline">
+                <li className="cursor-pointer list-disc decoration-1 underline-offset-1 hover:underline">
                   Terms
                 </li>
-                <li className="cursor-pointer list-disc text-gray-700 decoration-1 underline-offset-1 hover:underline">
+                <li className="cursor-pointer list-disc decoration-1 underline-offset-1 hover:underline">
                   Sitemap
                 </li>
-                <li className="cursor-pointer list-disc text-gray-700 decoration-1 underline-offset-1 hover:underline">
+                <li className="cursor-pointer list-disc decoration-1 underline-offset-1 hover:underline">
                   Company details
                 </li>
               </ul>

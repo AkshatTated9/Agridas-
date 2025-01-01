@@ -10,14 +10,14 @@ import DatePickerWithRange from './DatePickerWithRange';
 const BookingWidget = ({ place }) => {
   const [dateRange, setDateRange] = useState({ from: null, to: null });
   const [bookingData, setBookingData] = useState({
-    noOfGuests: 1,
+    // noOfGuests: 1,
     name: '',
     phone: '',
   });
   const [redirect, setRedirect] = useState('');
   const { user } = useAuth();
 
-  const { noOfGuests, name, phone } = bookingData;
+  const {name, phone } = bookingData;         // const { noOfGuests, name, phone } = bookingData;
   const { _id: id, price } = place;
 
   useEffect(() => {
@@ -51,11 +51,11 @@ const BookingWidget = ({ place }) => {
     // BOOKING DATA VALIDATION
     if (numberOfNights < 1) {
       return toast.error('Please select valid dates');
-    } else if (noOfGuests < 1) {
-      return toast.error("No. of guests can't be less than 1");
-    } else if (noOfGuests > place.maxGuests) {
-      return toast.error(`Allowed max. no. of guests: ${place.maxGuests}`);
-    } else if (name.trim() === '') {
+    }// else if (noOfGuests < 1) {
+    //   return toast.error("No. of guests can't be less than 1");
+    // } else if (noOfGuests > place.maxGuests) {
+    //   return toast.error(`Allowed max. no. of guests: ${place.maxGuests}`);}
+     else if (name.trim() === '') {
       return toast.error("Name can't be empty");
     } else if (phone.trim() === '') {
       return toast.error("Phone can't be empty");
@@ -65,7 +65,7 @@ const BookingWidget = ({ place }) => {
       const response = await axiosInstance.post('/bookings', {
         checkIn: dateRange.from,
         checkOut: dateRange.to,
-        noOfGuests,
+        // noOfGuests,
         name,
         phone,
         place: id,
@@ -77,7 +77,7 @@ const BookingWidget = ({ place }) => {
       setRedirect(`/account/bookings/${bookingId}`);
       toast('Congratulations! Enjoy your trip.');
     } catch (error) {
-      toast.error('Something went wrong!');
+      toast.error('Something went wrong the selected dates might be booked!');
       console.log('Error: ', error);
     }
   };
@@ -89,14 +89,14 @@ const BookingWidget = ({ place }) => {
   return (
     <div className="rounded-2xl bg-white p-4 shadow-xl">
       <div className="text-center text-xl">
-        Price: <span className="font-semibold">₹{place.price}</span> / per night
+        Price: <span className="font-semibold">₹{place.price}</span> / per Acre
       </div>
       <div className="mt-4 rounded-2xl border">
         <div className="flex w-full ">
           <DatePickerWithRange setDateRange={setDateRange} />
         </div>
         <div className="border-t py-3 px-4">
-          <label>Number of guests: </label>
+          {/* <label>Number of guests: </label>
           <input
             type="number"
             name="noOfGuests"
@@ -105,7 +105,7 @@ const BookingWidget = ({ place }) => {
             max={place.maxGuests}
             value={noOfGuests}
             onChange={handleBookingData}
-          />
+          /> */}
         </div>
         <div className="border-t py-3 px-4">
           <label>Your full name: </label>

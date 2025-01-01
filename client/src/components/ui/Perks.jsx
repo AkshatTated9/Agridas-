@@ -9,8 +9,8 @@ const Perks = ({ selected, handleFormData }) => {
       >
         <input
           type="checkbox"
-          checked={selected.includes('wifi')}
-          name="wifi"
+          checked={selected.includes('Helper')}
+          name="Helper"
           onChange={handleFormData}
         />
         <svg
@@ -28,13 +28,13 @@ const Perks = ({ selected, handleFormData }) => {
           />
         </svg>
 
-        <span>Wifi</span>
+        <span>Helper</span>
       </label>
       <label className="flex cursor-pointer items-center gap-2 rounded-2xl border p-4">
         <input
           type="checkbox"
-          checked={selected.includes('parking')}
-          name="parking"
+          checked={selected.includes('Fuel')}
+          name="Fuel"
           onChange={handleFormData}
         />
         <svg
@@ -52,13 +52,13 @@ const Perks = ({ selected, handleFormData }) => {
           />
         </svg>
 
-        <span>Free parking spot</span>
+        <span>Fuel</span>
       </label>
       <label className="flex cursor-pointer items-center gap-2 rounded-2xl border p-4">
         <input
           type="checkbox"
-          checked={selected.includes('tv')}
-          name="tv"
+          checked={selected.includes('Labour Delivery')}
+          name="Labour Delivery"
           onChange={handleFormData}
         />
         <svg
@@ -76,13 +76,13 @@ const Perks = ({ selected, handleFormData }) => {
           />
         </svg>
 
-        <span>TV</span>
+        <span>Labour Delivery</span>
       </label>
       <label className="flex cursor-pointer items-center gap-2 rounded-2xl border p-4">
         <input
           type="checkbox"
-          checked={selected.includes('radio')}
-          name="radio"
+          checked={selected.includes('Speedy Output')}
+          name="Speedy Output"
           onChange={handleFormData}
         />
         <svg
@@ -100,13 +100,13 @@ const Perks = ({ selected, handleFormData }) => {
           />
         </svg>
 
-        <span>Radio</span>
+        <span>Speedy Output</span>
       </label>
       <label className="flex cursor-pointer items-center gap-2 rounded-2xl border p-4">
         <input
           type="checkbox"
-          checked={selected.includes('pets')}
-          name="pets"
+          checked={selected.includes('Skilled workforce')}
+          name="Skilled workforce"
           onChange={handleFormData}
         />
         <svg
@@ -124,13 +124,13 @@ const Perks = ({ selected, handleFormData }) => {
           />
         </svg>
 
-        <span>Pets</span>
+        <span>Skilled workforce</span>
       </label>
       <label className="flex cursor-pointer items-center gap-2 rounded-2xl border p-4">
         <input
           type="checkbox"
-          checked={selected.includes('enterence')}
-          name="enterence"
+          checked={selected.includes('Flexible Working hours')}
+          name="Flexible Working hours"
           onChange={handleFormData}
         />
         <svg
@@ -148,7 +148,7 @@ const Perks = ({ selected, handleFormData }) => {
           />
         </svg>
 
-        <span>Private Enterence</span>
+        <span>Flexible Working hours</span>
       </label>
     </div>
   );

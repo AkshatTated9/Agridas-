@@ -23,7 +23,7 @@ const PlacesFormPage = () => {
     extraInfo: '',
     checkIn: '',
     checkOut: '',
-    maxGuests: 10,
+    // maxGuests: 10,
     price: 500,
   });
 
@@ -35,7 +35,7 @@ const PlacesFormPage = () => {
     extraInfo,
     checkIn,
     checkOut,
-    maxGuests,
+    // maxGuests,
     price,
   } = formData;
 
@@ -51,14 +51,14 @@ const PlacesFormPage = () => {
       return false;
     } else if (description.trim() === '') {
       toast.error("Description can't be empty!");
-      return false;
-    } else if (maxGuests < 1) {
-      toast.error('At least one guests is required!');
-      return false;
-    } else if (maxGuests > 10) {
-      toast.error("Max. guests can't be greater than 10");
-      return false;
-    }
+      return false;}
+    //   else if (maxGuests < 1) {
+    //   toast.error('At least one guests is required!');
+    //   return false;
+    // } else if (maxGuests > 10) {
+    //   toast.error("Max. guests can't be greater than 10");
+    //   return false;
+    // }
 
     return true;
   };
@@ -159,43 +159,43 @@ const PlacesFormPage = () => {
       <form onSubmit={savePlace}>
         {preInput(
           'Title',
-          'title for your place. Should be short and catchy as in advertisement',
+          'Title for the services you provide, whether it is labor or machinery',
         )}
         <input
           type="text"
           name="title"
           value={title}
           onChange={handleFormData}
-          placeholder="title, for example: My lovely apt"
+          placeholder="For example: Harvester for Corns or Labour for cotton"
         />
 
-        {preInput('Address', 'address to this place')}
+        {preInput('Address', 'Location of the service provider.')}
         <input
           type="text"
           name="address"
           value={address}
           onChange={handleFormData}
-          placeholder="address"
+          placeholder="For Example: Chandwad Maharastra"
         />
 
-        {preInput('Photos', 'more = better')}
+        {preInput('Photos', 'Add more images for better clarity')}
 
         <PhotosUploader
           addedPhotos={addedPhotos}
           setAddedPhotos={setAddedPhotos}
         />
 
-        {preInput('Description', 'discription of the place')}
+        {preInput('Description', 'Discription of the Machine / Labour')}
         <textarea
           value={description}
           name="description"
           onChange={handleFormData}
         />
 
-        {preInput('Perks', ' select all the perks of your place')}
+        {preInput('Perks', ' Select all the perks of your Machine / Labour')}
         <Perks selected={perks} handleFormData={handleFormData} />
 
-        {preInput('Extra info', 'house rules, etc ')}
+        {preInput('Extra info', 'Transportaion cost etc ')}
         <textarea
           value={extraInfo}
           name="extraInfo"
@@ -203,12 +203,12 @@ const PlacesFormPage = () => {
         />
 
         {preInput(
-          'Number of guests & Price',
+          'Per Hour Rental Price',
           // 'add check in and out times, remember to have some time window forcleaning the room between guests. '
-          'Specify the maximum number of guests so that the client stays within the limit.',
+          'Specify the minimum amount of rent per Hour.',
         )}
         <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-4">
-          <div>
+          {/* <div>
             <h3 className="mt-2 -mb-1">Max no. of guests</h3>
             <input
               type="text"
@@ -217,9 +217,9 @@ const PlacesFormPage = () => {
               onChange={handleFormData}
               placeholder="1"
             />
-          </div>
+          </div> */}
           <div>
-            <h3 className="mt-2 -mb-1">Price per night</h3>
+            <h3 className="mt-2 -mb-1">Price per Hour</h3>
             <input
               type="number"
               name="price"

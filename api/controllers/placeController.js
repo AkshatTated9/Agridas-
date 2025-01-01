@@ -11,7 +11,7 @@ exports.addPlace = async (req, res) => {
       description,
       perks,
       extraInfo,
-      maxGuests,
+      // maxGuests,
       price,
     } = req.body;
     const place = await Place.create({
@@ -22,7 +22,7 @@ exports.addPlace = async (req, res) => {
       description,
       perks,
       extraInfo,
-      maxGuests,
+      // maxGuests,
       price,
     });
     res.status(200).json({
@@ -62,7 +62,7 @@ exports.updatePlace = async (req, res) => {
       description,
       perks,
       extraInfo,
-      maxGuests,
+      // maxGuests,
       price,
     } = req.body;
 
@@ -75,7 +75,7 @@ exports.updatePlace = async (req, res) => {
         description,
         perks,
         extraInfo,
-        maxGuests,
+        // maxGuests,
         price,
       });
       await place.save();
