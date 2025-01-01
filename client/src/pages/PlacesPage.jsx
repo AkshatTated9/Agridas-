@@ -33,7 +33,7 @@ const PlacesPage = () => {
       <AccountNav />
       <div className="text-center ">
         <Link
-          className="inline-flex gap-1 rounded-full bg-primary py-2 px-6 text-white"
+          className="inline-flex gap-1 rounded-full bg-lime-500 py-2 px-6 text-black text-"
           to={'/account/places/new'}
         >
           <svg
@@ -50,7 +50,7 @@ const PlacesPage = () => {
               d="M12 4.5v15m7.5-7.5h-15"
             />
           </svg>
-          Add new place
+          Add new Tool
         </Link>
       </div>
       <div className="mx-4 mt-4">

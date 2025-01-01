@@ -57,7 +57,7 @@ const SingleBookedPlace = () => {
               </h2>
               <BookingDates booking={booking} />
             </div>
-            <div className="mt-5 w-full rounded-2xl bg-primary p-6 text-white sm:mt-0 sm:w-auto">
+            <div className="mt-5 w-full rounded-2xl bg-lime-500 p-6 text-black sm:mt-0 sm:w-auto">
               <div className="hidden md:block">Total price</div>
               <div className="flex justify-center text-3xl">
                 <span>₹{booking?.price}</span>

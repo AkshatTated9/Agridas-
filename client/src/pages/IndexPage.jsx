@@ -20,7 +20,7 @@ const IndexPage = () => {
           <p className="text-lg font-semibold">
             Sorry, we couldn&#39;t find the place you&#39;re looking for.
           </p>
-          <button className="mt-4 w-32 rounded-full bg-primary p-2 text-white">
+          <button className="mt-4 w-32 rounded-full bg-lime-500 p-2 text-black">
             <a href="/" className="flex items-center justify-center gap-1">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

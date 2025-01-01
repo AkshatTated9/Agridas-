@@ -53,7 +53,7 @@ export const Header = () => {
             alt=""
           />
 
-          <span className="hidden text-2xl font-bold text-green-500 md:block">
+          <span className="hidden text-2xl font-bold text-lime-500 md:block">
             AgriConnect
           </span>
         </a>

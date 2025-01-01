@@ -40,7 +40,7 @@ const SearchBar = () => {
             value={searchText}
           />
         </div>
-        <div className="bg-blue flex cursor-pointer  items-center bg-lime-500 text-white">
+        <div className="bg-blue flex cursor-pointer  items-center bg-lime-500 text-black">
           <button
             className="flex rounded-r-full bg-lime-500 py-2 px-4 md:p-2"
             onClick={handleSearch}
