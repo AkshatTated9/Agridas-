@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <div className="flex w-full justify-center bg-[#123524] pb-8 text-lime-500">
+    <div className="flex w-full justify-center bg-[#123524] pb-8 text-[#7fff00]">
       <div className="flex w-full max-w-screen-xl flex-col items-center px-6">
         {/* grid for links */}
         <div className="grid w-full grid-cols-1 gap-4 py-8 text-sm md:grid-cols-3">
