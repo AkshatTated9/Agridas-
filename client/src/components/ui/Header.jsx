@@ -35,6 +35,7 @@ export const Header = () => {
     };
   }, [location]);
 
+
   return (
     <header
       className={`fixed top-0 z-10 flex w-screen justify-center bg-[#123524] py-4 ${
@@ -62,15 +63,15 @@ export const Header = () => {
 
         <Link
           to={user ? '/account' : '/login'}
-          className="w-50 flex h-full items-center gap-2 rounded-full border-gray-300 py-1 px-2 md:border"
+          className="w-50 border-[3px] flex h-full items-center gap-2 rounded-full border-lime-500 py-1/2 px-2"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            fill="white"
+            fill="currentColor"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
-            stroke="white"
-            className="hidden h-6 w-6 md:block"
+            stroke="currentColor"
+            className="hidden h-6 w-6 md:block text-lime-500 fill-current"
           >
             <path
               strokeLinecap="round"
@@ -121,4 +122,5 @@ export const Header = () => {
       <br className="border border-white-600" />
     </header>
   );
+
 };
