@@ -145,6 +145,13 @@ const PlacesFormPage = () => {
     }
   };
 
+  const deletePlace = async () => {
+    if (window.confirm('Are you sure you want to delete this place?')) {
+      await axiosInstance.delete(`/places/${id}`);
+      setRedirect(true);
+    }
+  };
+
   if (redirect) {
     return <Navigate to={'/account/places'} />;
   }
@@ -229,9 +236,20 @@ const PlacesFormPage = () => {
             />
           </div>
         </div>
-        <button className="mx-auto my-4 flex rounded-full bg-lime-500 py-3 px-20 text-xl font-semibold text-white">
-          Save
-        </button>
+        <div className="flex justify-center gap-4">
+          <button className="rounded-full bg-lime-500 py-3 px-20 text-xl font-semibold text-white">
+            Save
+          </button>
+          {id && (
+            <button
+              type="button"
+              onClick={deletePlace}
+              className="rounded-full bg-lime-500 py-3 px-20 text-xl font-semibold text-white"
+            >
+              Delete
+            </button>
+          )}
+        </div>
       </form>
     </div>
   );
