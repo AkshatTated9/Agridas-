@@ -20,6 +20,8 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import { getItemFromLocalStorage } from './utils';
 import NotFoundPage from './pages/NotFoundPage';
 
+import AboutUs from './pages/AboutUs';
+
 function App() {
   useEffect(() => {
     // set the token on refreshing the website
@@ -47,6 +49,7 @@ function App() {
                 path="/account/bookings/:id"
                 element={<SingleBookedPlace />}
               />
+              <Route path="/footer/aboutUs" element={<AboutUs />} />
               <Route path="*" element={<NotFoundPage />} />
             </Route>
           </Routes>

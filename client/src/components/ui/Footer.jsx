@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -65,9 +66,11 @@ const Footer = () => {
           <div className="flex flex-col gap-1">
             <strong className="font-medium">Agriconnect</strong>
             <p>
-              <span className="cursor-pointer font-normal text-white decoration-1 underline-offset-1 hover:underline">
+
+              <Link className="cursor-pointer font-normal text-white decoration-1 underline-offset-1 hover:underline" to={'/footer/aboutUs'}>
                 About Us
-              </span>
+              </Link>
+
             </p>
             <p>
               <span className="cursor-pointer font-normal text-white decoration-1 underline-offset-1 hover:underline">
