@@ -73,9 +73,9 @@ const Footer = () => {
 
             </p>
             <p>
-              <span className="cursor-pointer font-normal text-white decoration-1 underline-offset-1 hover:underline">
+            <Link className="cursor-pointer font-normal text-white decoration-1 underline-offset-1 hover:underline" to={'/footer/ContactUs'}>
                 Contact Us
-              </span>
+              </Link>
             </p>
             <p>
               <span className="cursor-pointer font-normal text-white decoration-1 underline-offset-1 hover:underline">

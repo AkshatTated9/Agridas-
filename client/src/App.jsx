@@ -21,6 +21,7 @@ import { getItemFromLocalStorage } from './utils';
 import NotFoundPage from './pages/NotFoundPage';
 
 import AboutUs from './pages/AboutUs';
+import ContactUs from './pages/ContactUs';
 
 function App() {
   useEffect(() => {
@@ -50,6 +51,7 @@ function App() {
                 element={<SingleBookedPlace />}
               />
               <Route path="/footer/aboutUs" element={<AboutUs />} />
+              <Route path="/footer/ContactUs" element={<ContactUs />} />
               <Route path="*" element={<NotFoundPage />} />
             </Route>
           </Routes>
