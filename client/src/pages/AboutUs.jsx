@@ -17,7 +17,7 @@ const AboutUs = () => {
                 <div className="mt-32 max-w-md">
                     <h1 className="text-4xl font-mono font-bold mb-4">Welcome to Agriconnect!</h1>
                     <p className="text-lg font-mono mb-6">
-                        Agriconnect bridges the gap between farmers and resources, connecting them with laborers and providing farming tools for rent to make agriculture efficient, affordable, and community-focused.
+                    Empowering farmers with seamless access to nearby machines and labor providers. Our platform connects farmers with the resources they need to boost productivity and maximize profits. Simplify your search, rent agricultural machinery, and hire skilled labor effortlessly with Agriconnect!
                     </p>
                     <button className="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700">
                         Learn More
@@ -79,7 +79,7 @@ const AboutUs = () => {
                             Our Mission
                         </h2>
                         <p className="text-lg text-gray-700 text-center leading-relaxed">
-                            At Agriconnect, our mission is to empower farmers by providing seamless access to essential resources and services. We strive to build a sustainable agricultural ecosystem where collaboration and innovation drive success. By connecting farmers with laborers and tools, we aim to enhance productivity, reduce costs, and foster a community-centric approach to modern farming.
+                        Our mission is to enable farmers to discover nearby machine and labor providers essential for farming. By connecting farmers with local services, we help reduce the need to hire or rent from distant locations, cutting expenses and improving profitability. At the same time, Agriconnect supports unemployed laborers in finding work opportunities and machine providers in renting out their equipment, fostering a more sustainable and inclusive agricultural ecosystem.
                         </p>
                     </div>
                 </div>
