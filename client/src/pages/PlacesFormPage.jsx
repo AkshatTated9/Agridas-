@@ -23,8 +23,9 @@ const PlacesFormPage = () => {
     extraInfo: '',
     checkIn: '',
     checkOut: '',
-    // maxGuests: 10,
     price: 500,
+    email: '',  // New field for email
+    phone: '',  // New field for phone number
   });
 
   const {
@@ -33,10 +34,9 @@ const PlacesFormPage = () => {
     description,
     perks,
     extraInfo,
-    checkIn,
-    checkOut,
-    // maxGuests,
     price,
+    email,  // Destructure email
+    phone,  // Destructure phone
   } = formData;
 
   const isValidPlaceData = () => {
@@ -51,17 +51,18 @@ const PlacesFormPage = () => {
       return false;
     } else if (description.trim() === '') {
       toast.error("Description can't be empty!");
-      return false;}
-    //   else if (maxGuests < 1) {
-    //   toast.error('At least one guests is required!');
-    //   return false;
-    // } else if (maxGuests > 10) {
-    //   toast.error("Max. guests can't be greater than 10");
-    //   return false;
-    // }
-
+      return false;
+    } else if (!email || !/\S+@\S+\.\S+/.test(email)) {
+      toast.error('Please enter a valid email!');
+      return false;
+    } else if (!phone || !/^\d{10}$/.test(phone)) {
+      toast.error('Please enter a valid phone number!');
+      return false;
+    }
+  
     return true;
   };
+  
 
   const handleFormData = (e) => {
     const { name, value, type } = e.target;
@@ -123,7 +124,7 @@ const PlacesFormPage = () => {
     e.preventDefault();
 
     const formDataIsValid = isValidPlaceData();
-    // console.log(isValidPlaceData());
+
     const placeData = { ...formData, addedPhotos };
 
     // Make API call only if formData is valid
@@ -186,23 +187,22 @@ const PlacesFormPage = () => {
         />
 
         {preInput('Photos', 'Add more images for better clarity')}
-
         <PhotosUploader
           addedPhotos={addedPhotos}
           setAddedPhotos={setAddedPhotos}
         />
 
-        {preInput('Description', 'Discription of the Machine / Labour')}
+        {preInput('Description', 'Description of the Machine / Labour')}
         <textarea
           value={description}
           name="description"
           onChange={handleFormData}
         />
 
-        {preInput('Perks', ' Select all the perks of your Machine / Labour')}
+        {preInput('Perks', 'Select all the perks of your Machine / Labour')}
         <Perks selected={perks} handleFormData={handleFormData} />
 
-        {preInput('Extra info', 'Transportaion cost etc ')}
+        {preInput('Extra info', 'Transportation cost etc.')}
         <textarea
           value={extraInfo}
           name="extraInfo"
@@ -211,20 +211,9 @@ const PlacesFormPage = () => {
 
         {preInput(
           'Per Hour Rental Price',
-          // 'add check in and out times, remember to have some time window forcleaning the room between guests. '
           'Specify the minimum amount of rent per Hour.',
         )}
         <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-4">
-          {/* <div>
-            <h3 className="mt-2 -mb-1">Max no. of guests</h3>
-            <input
-              type="text"
-              name="maxGuests"
-              value={maxGuests}
-              onChange={handleFormData}
-              placeholder="1"
-            />
-          </div> */}
           <div>
             <h3 className="mt-2 -mb-1">Price per Hour</h3>
             <input
@@ -236,6 +225,27 @@ const PlacesFormPage = () => {
             />
           </div>
         </div>
+
+        {/* New Email Field */}
+        {preInput('Email', 'Provide a valid email address.')}
+        <input
+          type="email"
+          name="email"
+          value={email}
+          onChange={handleFormData}
+          placeholder="Enter email"
+        />
+
+        {/* New Phone Field */}
+        {preInput('Phone', 'Provide a valid phone number.')}
+        <input
+          type="text"
+          name="phone"
+          value={phone}
+          onChange={handleFormData}
+          placeholder="Enter phone number"
+        />
+
         <div className="flex justify-center gap-4">
           <button className="rounded-full bg-lime-500 py-3 px-20 text-xl font-semibold text-white">
             Save

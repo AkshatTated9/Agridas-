@@ -13,6 +13,8 @@ exports.addPlace = async (req, res) => {
       extraInfo,
       // maxGuests,
       price,
+      email,
+      phone
     } = req.body;
     const place = await Place.create({
       owner: userData.id,
@@ -24,6 +26,8 @@ exports.addPlace = async (req, res) => {
       extraInfo,
       // maxGuests,
       price,
+      email,
+      phone
     });
     res.status(200).json({
       place,
@@ -64,6 +68,8 @@ exports.updatePlace = async (req, res) => {
       extraInfo,
       // maxGuests,
       price,
+      email,
+      phone
     } = req.body;
 
     const place = await Place.findById(id);
@@ -77,6 +83,8 @@ exports.updatePlace = async (req, res) => {
         extraInfo,
         // maxGuests,
         price,
+        email,
+        phone
       });
       await place.save();
       res.status(200).json({

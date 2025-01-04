@@ -22,11 +22,18 @@ const placeSchema = new mongoose.Schema({
   extraInfo: {
     type: String,
   },
-  // maxGuests: {
-  //   type: Number,
-  // },
   price: {
     type: Number,
+  },
+  email: {
+    type: String,
+    required: true, // Assuming email is required for each place
+    match: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, // Basic email validation regex
+  },
+  phone: {
+    type: String,
+    required: true, // Assuming phone is required for each place
+    match: /^[0-9]{10}$/, // Basic phone number validation (10 digits)
   },
 });
 
