@@ -10,14 +10,14 @@ import DatePickerWithRange from './DatePickerWithRange';
 const BookingWidget = ({ place }) => {
   const [dateRange, setDateRange] = useState({ from: null, to: null });
   const [bookingData, setBookingData] = useState({
-    // noOfGuests: 1,
     name: '',
     phone: '',
+    address: '', // New field for user's address
   });
   const [redirect, setRedirect] = useState('');
   const { user } = useAuth();
 
-  const {name, phone } = bookingData;         // const { noOfGuests, name, phone } = bookingData;
+  const { name, phone, address } = bookingData;
   const { _id: id, price } = place;
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const BookingWidget = ({ place }) => {
         )
       : 0;
 
-  // handle booking form
+  // Handle booking form input
   const handleBookingData = (e) => {
     setBookingData({
       ...bookingData,
@@ -43,31 +43,29 @@ const BookingWidget = ({ place }) => {
   };
 
   const handleBooking = async () => {
-    // User must be signed in to book place
+    // User must be signed in to book a place
     if (!user) {
       return setRedirect(`/login`);
     }
 
-    // BOOKING DATA VALIDATION
+    // Booking data validation
     if (numberOfNights < 1) {
       return toast.error('Please select valid dates');
-    }// else if (noOfGuests < 1) {
-    //   return toast.error("No. of guests can't be less than 1");
-    // } else if (noOfGuests > place.maxGuests) {
-    //   return toast.error(`Allowed max. no. of guests: ${place.maxGuests}`);}
-     else if (name.trim() === '') {
+    } else if (name.trim() === '') {
       return toast.error("Name can't be empty");
     } else if (phone.trim() === '') {
       return toast.error("Phone can't be empty");
+    } else if (address.trim() === '') {
+      return toast.error("Address can't be empty");
     }
 
     try {
       const response = await axiosInstance.post('/bookings', {
         checkIn: dateRange.from,
         checkOut: dateRange.to,
-        // noOfGuests,
         name,
         phone,
+        address, // Include address in the booking request
         place: id,
         price: numberOfNights * price,
       });
@@ -75,9 +73,9 @@ const BookingWidget = ({ place }) => {
       const bookingId = response.data.booking._id;
 
       setRedirect(`/account/bookings/${bookingId}`);
-      toast('Congratulations! Enjoy your trip.');
+      toast('Congratulations! Booked your Service.');
     } catch (error) {
-      toast.error('Something went wrong the selected dates might be booked!');
+      toast.error('Something went wrong. The selected dates might be booked!');
       console.log('Error: ', error);
     }
   };
@@ -89,23 +87,11 @@ const BookingWidget = ({ place }) => {
   return (
     <div className="rounded-2xl bg-white p-4 shadow-xl">
       <div className="text-center text-xl">
-        Price: <span className="font-semibold">₹{place.price}</span> / per Acre
+        Price: <span className="font-semibold">₹{place.price}</span> / per Hour
       </div>
       <div className="mt-4 rounded-2xl border">
-        <div className="flex w-full ">
+        <div className="flex w-full">
           <DatePickerWithRange setDateRange={setDateRange} />
-        </div>
-        <div className="border-t py-3 px-4">
-          {/* <label>Number of guests: </label>
-          <input
-            type="number"
-            name="noOfGuests"
-            placeholder={`Max. guests: ${place.maxGuests}`}
-            min={1}
-            max={place.maxGuests}
-            value={noOfGuests}
-            onChange={handleBookingData}
-          /> */}
         </div>
         <div className="border-t py-3 px-4">
           <label>Your full name: </label>
@@ -122,10 +108,18 @@ const BookingWidget = ({ place }) => {
             value={phone}
             onChange={handleBookingData}
           />
+          <label>Address (Where service is needed): </label>
+          <input
+            type="text"
+            name="address"
+            placeholder="Enter exact address"
+            value={address}
+            onChange={handleBookingData}
+          />
         </div>
       </div>
       <button onClick={handleBooking} className="primary mt-4 bg-lime-500">
-        Book this tool
+        Book this Service
         {numberOfNights > 0 && <span> ₹{numberOfNights * place.price}</span>}
       </button>
     </div>
