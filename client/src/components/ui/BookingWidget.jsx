@@ -75,7 +75,16 @@ const BookingWidget = ({ place }) => {
       setRedirect(`/account/bookings/${bookingId}`);
       toast('Congratulations! Booked your Service.');
     } catch (error) {
-      toast.error('Something went wrong. The selected dates might be booked!');
+      if (error.response?.status === 409) {
+        const { checkIn, checkOut } = error.response.data.conflict;
+        toast.error(
+          `The selected dates are already booked from ${new Date(
+            checkIn,
+          ).toLocaleDateString()} to ${new Date(checkOut).toLocaleDateString()}`
+        );
+      } else {
+        toast.error('Something went wrong. Please try again later.');
+      }
       console.log('Error: ', error);
     }
   };

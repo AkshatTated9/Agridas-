@@ -14,7 +14,7 @@ import {
 export default function DatePickerWithRange({ className, setDateRange }) {
   const [date, setDate] = React.useState({
     from: new Date(),
-    to: addDays(Date.now(), 5),
+    to: addDays(Date.now(), 1),
   });
 
   const today = new Date();

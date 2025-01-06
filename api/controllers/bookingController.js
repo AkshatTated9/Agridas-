@@ -15,9 +15,13 @@ exports.createBookings = async (req, res) => {
     });
 
     if (conflictingBooking) {
-      return res.status(400).json({
+      return res.status(409).json({
         success: false,
         message: 'The selected dates are unavailable for this place.',
+        conflict: {
+          checkIn: conflictingBooking.checkIn,
+          checkOut: conflictingBooking.checkOut,
+        },
       });
     }
 
@@ -33,15 +37,17 @@ exports.createBookings = async (req, res) => {
       price,
     });
 
-    res.status(200).json({
+    res.status(201).json({
       booking,
       success: true,
       message: 'Booking created successfully!',
     });
   } catch (err) {
+    console.error(err);
     res.status(500).json({
+      success: false,
       message: 'Internal server error',
-      error: err,
+      error: err.message,
     });
   }
 };

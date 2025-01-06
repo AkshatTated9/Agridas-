@@ -83,10 +83,10 @@ const BookingsPage = () => {
         ) : (
           <div className="">
             <div className="flex flex-col justify-start">
-              <h1 className="my-6 text-3xl font-semibold">Tools</h1>
+              <h1 className="my-6 text-3xl font-semibold">Services</h1>
               <hr className="border border-gray-300" />
               <h3 className="pt-6 text-2xl font-semibold">
-                No tools booked... yet!
+                No services booked... yet!
               </h3>
               <p>
                 Start your journey toward smarter farming today!
