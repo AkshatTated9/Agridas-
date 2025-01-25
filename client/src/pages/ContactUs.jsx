@@ -5,14 +5,6 @@ const ContactUs = () => {
     return (
         <div className="mt-20 font-mono">
 
-            <div className="mb-12" >
-                <img
-                    className="h-[450px] w-full"
-                    src={contactUs} 
-                    alt="ContactUs Image"
-                />
-            </div>
-
             <div
                 className="relative text-center mb-12">
                 <h1 className="text-5xl font-bold ">
@@ -61,16 +53,7 @@ const ContactUs = () => {
                 <ContactDetail icon="📍" text="123 Farm Lane, AgriTown" />
             </div>
 
-            {/* Google Maps Section */}
-            <div className="mt-16 m-12">
-                <iframe
-                    title="Google Maps"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d243646.98770208444!2d-0.3817827!3d51.5287718!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761cb58b464d8f%3A0x7a36266b650ddc73!2sLondon%20Eye!5e0!3m2!1sen!2suk!4v1696004567552!5m2!1sen!2suk"
-                    className="w-full h-96 border-0 rounded-md"
-                    loading="lazy"
-                    allowFullScreen
-                ></iframe>
-            </div>
+            
         </div>
     );
 };
