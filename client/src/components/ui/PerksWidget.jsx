@@ -4,7 +4,7 @@ const PerksWidget = ({ perks }) => {
   return (
     <div className="mt-4">
       <hr className="mb-5 border" />
-      <p className="text-2xl font-semibold">What this place offers</p>
+      <p className="text-2xl font-semibold">What this tool offers</p>
 
       <div className="mt-4 grid flex-col gap-4 lg:grid-cols-2 lg:justify-items-stretch lg:gap-4">
         <div className="flex gap-4">

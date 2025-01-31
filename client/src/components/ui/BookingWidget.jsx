@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import { differenceInDays } from 'date-fns';
+import { addDays } from 'date-fns';
 import { toast } from 'react-toastify';
 
 import { useAuth } from '../../../hooks';
@@ -8,84 +8,64 @@ import axiosInstance from '@/utils/axios';
 import DatePickerWithRange from './DatePickerWithRange';
 
 const BookingWidget = ({ place }) => {
-  const [dateRange, setDateRange] = useState({ from: null, to: null });
+  const [startDate, setStartDate] = useState(null);
+  const [acreage, setAcreage] = useState('');
   const [bookingData, setBookingData] = useState({
     name: '',
     phone: '',
-    address: '', // New field for user's address
+    address: '',
   });
   const [redirect, setRedirect] = useState('');
   const { user } = useAuth();
 
   const { name, phone, address } = bookingData;
   const { _id: id, price } = place;
+  const maxAcresPerDay = 10;
 
   useEffect(() => {
     if (user) {
-      setBookingData({ ...bookingData, name: user.name });
+      setBookingData((prev) => ({ ...prev, name: user.name }));
     }
   }, [user]);
 
-  const numberOfNights =
-    dateRange.from && dateRange.to
-      ? differenceInDays(
-          new Date(dateRange.to).setHours(0, 0, 0, 0),
-          new Date(dateRange.from).setHours(0, 0, 0, 0),
-        )
-      : 0;
+  // Calculate end date based on acreage
+  const calculateEndDate = () => {
+    if (!startDate || !acreage) return null;
+    const daysNeeded = Math.ceil(acreage / maxAcresPerDay);
+    return addDays(new Date(startDate), daysNeeded - 1);
+  };
 
-  // Handle booking form input
   const handleBookingData = (e) => {
-    setBookingData({
-      ...bookingData,
-      [e.target.name]: e.target.value,
-    });
+    setBookingData({ ...bookingData, [e.target.name]: e.target.value });
   };
 
   const handleBooking = async () => {
-    // User must be signed in to book a place
-    if (!user) {
-      return setRedirect(`/login`);
-    }
+    if (!user) return setRedirect(`/login`);
+    if (!startDate) return toast.error('Please select a start date');
+    if (!acreage || acreage < 1) return toast.error('Enter valid acreage');
+    if (name.trim() === '') return toast.error("Name can't be empty");
+    if (phone.trim() === '') return toast.error("Phone can't be empty");
+    if (address.trim() === '') return toast.error("Address can't be empty");
 
-    // Booking data validation
-    if (numberOfNights < 1) {
-      return toast.error('Please select valid dates');
-    } else if (name.trim() === '') {
-      return toast.error("Name can't be empty");
-    } else if (phone.trim() === '') {
-      return toast.error("Phone can't be empty");
-    } else if (address.trim() === '') {
-      return toast.error("Address can't be empty");
-    }
+    const checkOut = calculateEndDate();
 
     try {
       const response = await axiosInstance.post('/bookings', {
-        checkIn: dateRange.from,
-        checkOut: dateRange.to,
+        checkIn: startDate,
+        checkOut,
         name,
         phone,
-        address, // Include address in the booking request
+        address,
+        acreage,
         place: id,
-        price: numberOfNights * price,
+        price: acreage * price, // Price based on acreage
       });
 
-      const bookingId = response.data.booking._id;
-
-      setRedirect(`/account/bookings/${bookingId}`);
+      setRedirect(`/account/bookings/${response.data.booking._id}`);
       toast('Congratulations! Booked your Service.');
     } catch (error) {
-      if (error.response?.status === 409) {
-        const { checkIn, checkOut } = error.response.data.conflict;
-        toast.error(
-          `The selected dates are already booked from ${new Date(
-            checkIn,
-          ).toLocaleDateString()} to ${new Date(checkOut).toLocaleDateString()}`
-        );
-      } else {
-        toast.error('Something went wrong. Please try again later.');
-      }
-      console.log('Error: ', error);
+      toast.error('This date is already booked. Please select another date.');
+      console.error('Error: ', error);
     }
   };
 
@@ -96,40 +76,48 @@ const BookingWidget = ({ place }) => {
   return (
     <div className="rounded-2xl bg-white p-4 shadow-xl">
       <div className="text-center text-xl">
-        Price: <span className="font-semibold">₹{place.price}</span> / per Hour
+        Price: <span className="font-semibold">₹{place.price}</span> / per Acre
       </div>
-      <div className="mt-4 rounded-2xl border">
-        <div className="flex w-full">
-          <DatePickerWithRange setDateRange={setDateRange} />
-        </div>
-        <div className="border-t py-3 px-4">
-          <label>Your full name: </label>
-          <input
-            type="text"
-            name="name"
-            value={name}
-            onChange={handleBookingData}
-          />
-          <label>Phone number: </label>
-          <input
-            type="tel"
-            name="phone"
-            value={phone}
-            onChange={handleBookingData}
-          />
-          <label>Address (Where service is needed): </label>
-          <input
-            type="text"
-            name="address"
-            placeholder="Enter exact address"
-            value={address}
-            onChange={handleBookingData}
-          />
-        </div>
+      <div className="mt-4 rounded-2xl border p-4">
+        <label>Select Start Date: </label>
+        <DatePickerWithRange setDateRange={({ from }) => setStartDate(from)} />
+        
+        <label>Enter Acreage: </label>
+        <input
+          type="number"
+          min="1"
+          max="100"
+          name="acreage"
+          value={acreage}
+          onChange={(e) => setAcreage(e.target.value)}
+          placeholder="Enter acreage"
+          className="border p-2 w-full"
+        />
+
+        <label>Your full name: </label>
+        <input type="text" name="name" value={name} onChange={handleBookingData} />
+
+        <label>Phone number: </label>
+        <input type="tel" name="phone" value={phone} onChange={handleBookingData} />
+
+        <label>Address (Where service is needed): </label>
+        <input
+          type="text"
+          name="address"
+          placeholder="Enter exact address"
+          value={address}
+          onChange={handleBookingData}
+        />
+
+        {startDate && acreage && (
+          <p className="mt-2 text-lg  text-gray-700">
+            Estimated completion date : <span className='font-mono'>{calculateEndDate()?.toDateString()}</span> 
+          </p>
+        )}
       </div>
+
       <button onClick={handleBooking} className="primary mt-4 hover:bg-lime-600">
-        Book this Service
-        {numberOfNights > 0 && <span> ₹{numberOfNights * place.price}</span>}
+        Book this Service {acreage && <span> ₹{acreage * place.price}</span>}
       </button>
     </div>
   );
