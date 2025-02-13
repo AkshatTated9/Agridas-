@@ -61,64 +61,64 @@ const placeTitle = placeDetails.title; // Get the title of the place
 const formattedCheckIn = new Date(checkIn).toLocaleDateString('en-GB'); // 'DD/MM/YYYY' format
 const formattedCheckOut = new Date(checkOut).toLocaleDateString('en-GB'); // 'DD/MM/YYYY' format
 
-// Prepare SMS body
-const smsBody = `
-📅 NEW BOOKING RECEIVED 📅
+// // Prepare SMS body
+// const smsBody = `
+// 📅 NEW BOOKING RECEIVED 📅
 
-Dear Service/Machine Owner,
+// Dear Service/Machine Owner,
 
-You have received a new booking on AGRICONNECT.
+// You have received a new booking on AGRICONNECT.
 
-📌 BOOKING DETAILS:
+// 📌 BOOKING DETAILS:
 
-- Machine Name: ${placeTitle} 
-- CUSTOMER NAME: ${name}
-- PHONE NUMBER: ${phone}
-- START DATE: ${formattedCheckIn}
-- END DATE: ${formattedCheckOut}
-- TOTAL PRICE: ₹${price}
-- ADDRESS: ${address}
+// - Machine Name: ${placeTitle} 
+// - CUSTOMER NAME: ${name}
+// - PHONE NUMBER: ${phone}
+// - START DATE: ${formattedCheckIn}
+// - END DATE: ${formattedCheckOut}
+// - TOTAL PRICE: ₹${price}
+// - ADDRESS: ${address}
 
-Thank you for using Agriconnect!
+// Thank you for using Agriconnect!
 
-Best regards,  
-Agriconnect Team
+// Best regards,  
+// Agriconnect Team
 
---------------------------------------------------
+// --------------------------------------------------
 
-📅 नवीन बुकिंग प्राप्त झाली आहे 📅
+// 📅 नवीन बुकिंग प्राप्त झाली आहे 📅
 
-प्रिय मशीन मालक,
+// प्रिय मशीन मालक,
 
-आपल्याला AGRICONNECT वर नवीन बुकिंग प्राप्त झाली आहे.
+// आपल्याला AGRICONNECT वर नवीन बुकिंग प्राप्त झाली आहे.
 
-📌 बुकिंग तपशील:
+// 📌 बुकिंग तपशील:
 
-- मशीन चे नाव:: ${placeTitle}  
-- ग्राहकाचे नाव: ${name}
-- फोन नंबर: ${phone}
-- प्रारंभ तारीख: ${formattedCheckIn}
-- समाप्त तारीख: ${formattedCheckOut}
-- एकूण किंमत: ₹${price}
-- पत्ता: ${address}
+// - मशीन चे नाव:: ${placeTitle}  
+// - ग्राहकाचे नाव: ${name}
+// - फोन नंबर: ${phone}
+// - प्रारंभ तारीख: ${formattedCheckIn}
+// - समाप्त तारीख: ${formattedCheckOut}
+// - एकूण किंमत: ₹${price}
+// - पत्ता: ${address}
 
-AGRICONNECT वापरण्याबद्दल धन्यवाद!
+// AGRICONNECT वापरण्याबद्दल धन्यवाद!
 
-सर्वोत्तम शुभेच्छा,  
-AGRICONNECT टीम
-`;
+// सर्वोत्तम शुभेच्छा,  
+// AGRICONNECT टीम
+// `;
 
-// Send SMS to owner using Twilio
-twilioClient.messages
-  .create({
-    body: smsBody,
-    from: twilioPhoneNumber, // Twilio phone number
-    to: ownerPhone, // Place owner's phone number
-  })
-  .then((message) => console.log('SMS sent: ', message.sid))
-  .catch((error) => {
-    console.error('Error sending SMS: ', error);
-  });
+// // Send SMS to owner using Twilio
+// twilioClient.messages
+//   .create({
+//     body: smsBody,
+//     from: twilioPhoneNumber, // Twilio phone number
+//     to: ownerPhone, // Place owner's phone number
+//   })
+//   .then((message) => console.log('SMS sent: ', message.sid))
+//   .catch((error) => {
+//     console.error('Error sending SMS: ', error);
+//   });
 
 res.status(201).json({
   booking,
