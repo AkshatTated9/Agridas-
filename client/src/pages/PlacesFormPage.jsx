@@ -210,7 +210,7 @@ const PlacesFormPage = () => {
         />
 
         {preInput(
-          'Per Hour Rental Price',
+          'Per Acre Rental Price',
           'Specify the minimum amount of rent per Acre.',
         )}
         <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-4">
