@@ -20,7 +20,7 @@ const BookingWidget = ({ place }) => {
 
   const { name, phone, address } = bookingData;
   const { _id: id, price } = place;
-  const maxAcresPerDay = 10;
+  const maxAcresPerDay = place.maxLimit || 10;
 
   useEffect(() => {
     if (user) {

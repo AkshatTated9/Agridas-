@@ -11,7 +11,7 @@ const upload = multer({ dest: '/tmp' });
 // Health Check Endpoint
 router.get('/', (req, res) => {
   res.status(200).json({
-    greeting: 'Hello from Airbnb Clone API',
+    greeting: 'Hello from Agriconnect Clone API',
   });
 });
 
@@ -25,7 +25,7 @@ router.post('/upload-by-link', async (req, res) => {
     }
 
     const result = await cloudinary.uploader.upload(link, {
-      folder: 'Airbnb/Places',
+      folder: 'Agriconnect/Places',
     });
 
     res.status(200).json({ url: result.secure_url });
@@ -43,7 +43,7 @@ router.post('/upload', upload.array('photos', 100), async (req, res) => {
     for (const file of req.files) {
       const { path } = file;
       const result = await cloudinary.uploader.upload(path, {
-        folder: 'Airbnb/Places',
+        folder: 'Agriconnect/Places',
       });
 
       imageArray.push(result.secure_url);

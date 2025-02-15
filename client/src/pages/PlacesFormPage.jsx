@@ -24,8 +24,9 @@ const PlacesFormPage = () => {
     checkIn: '',
     checkOut: '',
     price: 500,
-    email: '',  // New field for email
-    phone: '',  // New field for phone number
+    email: '',  
+    phone: '',  
+    maxLimit: '',    
   });
 
   const {
@@ -37,6 +38,7 @@ const PlacesFormPage = () => {
     price,
     email,  // Destructure email
     phone,  // Destructure phone
+    maxLimit,
   } = formData;
 
   const isValidPlaceData = () => {
@@ -59,33 +61,58 @@ const PlacesFormPage = () => {
       toast.error('Please enter a valid phone number!');
       return false;
     }
-  
+    else if (!maxLimit) {
+      toast.error("Acre/Day can't be empty!");
+      return false;
+    }
+
     return true;
   };
-  
+
+
+  // const handleFormData = (e) => {
+  //   const { name, value, type } = e.target;
+  //   // If the input is not a checkbox, update 'formData' directly
+  //   if (type !== 'checkbox') {
+  //     setFormData({ ...formData, [name]: value });
+  //     return;
+  //   }
+
+  //   // If type is checkbox (perks)
+  //   if (type === 'checkbox') {
+  //     const currentPerks = [...perks];
+  //     let updatedPerks = [];
+
+  //     // Check if the perk is already in perks array
+  //     if (currentPerks.includes(name)) {
+  //       updatedPerks = currentPerks.filter((perk) => perk !== name);
+  //     } else {
+  //       updatedPerks = [...currentPerks, name];
+  //     }
+  //     setFormData({ ...formData, perks: updatedPerks });
+  //   }
+  // };
 
   const handleFormData = (e) => {
     const { name, value, type } = e.target;
-    // If the input is not a checkbox, update 'formData' directly
-    if (type !== 'checkbox') {
-      setFormData({ ...formData, [name]: value });
-      return;
-    }
-
-    // If type is checkbox (perks)
+  
     if (type === 'checkbox') {
-      const currentPerks = [...perks];
-      let updatedPerks = [];
-
-      // Check if the perk is already in perks array
-      if (currentPerks.includes(name)) {
-        updatedPerks = currentPerks.filter((perk) => perk !== name);
-      } else {
-        updatedPerks = [...currentPerks, name];
-      }
-      setFormData({ ...formData, perks: updatedPerks });
+      setFormData((prevFormData) => {
+        const currentPerks = prevFormData.perks || [];
+        const updatedPerks = currentPerks.includes(name)
+          ? currentPerks.filter((perk) => perk !== name)
+          : [...currentPerks, name];
+  
+        return { ...prevFormData, perks: updatedPerks };
+      });
+    } else {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: name === "maxLimit" || name === "price" ? Number(value) : value, // Ensure numeric values are stored as numbers
+      }));
     }
   };
+  
 
   useEffect(() => {
     if (!id) {
@@ -210,7 +237,7 @@ const PlacesFormPage = () => {
         />
 
         {preInput(
-          'Per Hour Rental Price',
+          'Per Acre Rental Price',
           'Specify the minimum amount of rent per Acre.',
         )}
         <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-4">
@@ -220,6 +247,20 @@ const PlacesFormPage = () => {
               type="number"
               name="price"
               value={price}
+              onChange={handleFormData}
+              placeholder="1"
+            />
+          </div>
+        </div>
+
+        {preInput('Maximum Acre Covered Per Day')}
+        <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-4">
+          <div>
+            <h3 className="mt-2 -mb-1">Max Acre/Day</h3>
+            <input
+              type="number"
+              name="maxLimit"
+              value={formData.maxLimit}  // Use formData.maxLimit
               onChange={handleFormData}
               placeholder="1"
             />
