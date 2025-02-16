@@ -11,7 +11,7 @@ exports.addPlace = async (req, res) => {
       description,
       perks,
       extraInfo,
-      // maxGuests,
+      maxLimit,
       price,
       email,
       phone
@@ -24,7 +24,7 @@ exports.addPlace = async (req, res) => {
       description,
       perks,
       extraInfo,
-      // maxGuests,
+      maxLimit,
       price,
       email,
       phone
@@ -66,7 +66,7 @@ exports.updatePlace = async (req, res) => {
       description,
       perks,
       extraInfo,
-      // maxGuests,
+      maxLimit,
       price,
       email,
       phone
@@ -81,14 +81,14 @@ exports.updatePlace = async (req, res) => {
         description,
         perks,
         extraInfo,
-        // maxGuests,
+        maxLimit,
         price,
         email,
         phone
       });
       await place.save();
       res.status(200).json({
-        message: 'place updated!',
+        message: 'Service updated!',
       });
     }
   } catch (err) {
@@ -120,7 +120,7 @@ exports.singlePlace = async (req, res) => {
     const place = await Place.findById(id);
     if (!place) {
       return res.status(400).json({
-        message: 'Place not found',
+        message: 'Service not found',
       });
     }
     res.status(200).json({
@@ -163,7 +163,7 @@ exports.deletePlace = async (req, res) => {
 
     if (!place) {
       return res.status(404).json({
-        message: 'Place not found',
+        message: 'Service not found',
       });
     }
 
@@ -178,7 +178,7 @@ exports.deletePlace = async (req, res) => {
     await Place.findByIdAndDelete(id);
 
     res.status(200).json({
-      message: 'Place deleted successfully',
+      message: 'Service deleted successfully',
     });
   } catch (err) {
     res.status(500).json({

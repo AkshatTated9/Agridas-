@@ -1,5 +1,15 @@
 {
   "dependencies": {
     "twilio": "^5.4.4"
-  }
+  },
+  "name": "agriconnect",
+  "version": "1.0.0",
+  "description": "AgriConnect is a digital platform built using the MERN stack (MongoDB, Express.js, React.js, and Node.js) that connects farmers with nearby machinery providers and laborers. It addresses the lack of visibility and connection, allowing farmers to find services easily and at competitive rates. By leveraging a modern tech stack, AgriConnect enhances user experience, reduces costs, increases efficiency, and improves farmers' overall profitability",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

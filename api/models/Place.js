@@ -30,6 +30,10 @@ const placeSchema = new mongoose.Schema({
     required: true, // Assuming email is required for each place
     match: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, // Basic email validation regex
   },
+  maxLimit:{
+    type:Number,
+    required:true
+  },
   phone: {
     type: String,
     required: true, // Assuming phone is required for each place
