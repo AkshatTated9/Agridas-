@@ -19,7 +19,7 @@ import { PlaceProvider } from './providers/PlaceProvider';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { getItemFromLocalStorage } from './utils';
 import NotFoundPage from './pages/NotFoundPage';
-
+import ReceivedRequests from './pages/ReceivedRequests';
 import AboutUs from './pages/AboutUs';
 import ContactUs from './pages/ContactUs';
 
@@ -53,6 +53,7 @@ function App() {
               <Route path="/footer/aboutUs" element={<AboutUs />} />
               <Route path="/footer/ContactUs" element={<ContactUs />} />
               <Route path="*" element={<NotFoundPage />} />
+              <Route path="/account/received-requests" element={<ReceivedRequests />} />
             </Route>
           </Routes>
           <ToastContainer autoClose={2000} transition={Slide} />

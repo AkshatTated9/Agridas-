@@ -28,17 +28,17 @@ const BookingsPage = () => {
   if (loading) return <Spinner />;
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col ">
       <AccountNav />
       <div>
         {bookings?.length > 0 ? (
           bookings.map((booking) => (
             <Link
               to={`/account/bookings/${booking._id}`}
-              className="mx-4 my-8 flex h-28 gap-4 overflow-hidden rounded-2xl bg-gray-200 md:h-40 lg:mx-0"
+              className="mx-4 my-8 flex h-28 gap-4 overflow-hidden rounded-2xl bg-gray-200 md:h-40 lg:mx-80"
               key={booking._id}
             >
-              <div className="w-2/6 md:w-1/6">
+              <div className="w-1/6 md:w-2/6">
                 {booking?.place?.photos[0] && (
                   <PlaceImg
                     place={booking?.place}
@@ -82,7 +82,7 @@ const BookingsPage = () => {
           ))
         ) : (
           <div className="">
-            <div className="flex flex-col justify-start">
+            <div className="flex flex-col items-center">
               <h1 className="my-6 text-3xl font-semibold">Services</h1>
               <hr className="border border-gray-300" />
               <h3 className="pt-6 text-2xl font-semibold">

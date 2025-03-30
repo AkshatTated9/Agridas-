@@ -61,11 +61,26 @@ const BookingWidget = ({ place }) => {
         price: acreage * price, // Price based on acreage
       });
 
-      setRedirect(`/account/bookings/${response.data.booking._id}`);
-      toast('Congratulations! Booked your Service.');
+      if (response.data.success) {
+        setRedirect(`/account/bookings/${response.data.pendingBooking._id}`);
+        toast.success('Congratulations! Booking request sent.');
+      }
     } catch (error) {
-      toast.error('This date is already booked. Please select another date.');
-      console.error('Error: ', error);
+      console.error('Full Error Response:', error.response);
+      
+      if (error.response) {
+        console.log('Error Status:', error.response.status);
+        console.log('Error Data:', error.response.data);
+        
+        // Check if backend explicitly returns date conflict
+        if (error.response.status === 409) {
+          toast.error(error.response.data.message || 'This date is already booked.');
+        } else {
+          toast.error(error.response.data.message || 'An unexpected error occurred.');
+        }
+      } else {
+        toast.error('Network error or server is down.');
+      }
     }
   };
 
@@ -110,8 +125,8 @@ const BookingWidget = ({ place }) => {
         />
 
         {startDate && acreage && (
-          <p className="mt-2 text-lg  text-gray-700">
-            Estimated completion date : <span className='font-mono'>{calculateEndDate()?.toDateString()}</span> 
+          <p className="mt-2 text-lg text-gray-700">
+            Estimated completion date: <span className='font-mono'>{calculateEndDate()?.toDateString()}</span> 
           </p>
         )}
       </div>

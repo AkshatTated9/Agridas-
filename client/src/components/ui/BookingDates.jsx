@@ -21,7 +21,7 @@ const BookingDates = ({ booking, className }) => {
       {differenceInCalendarDays(
         new Date(booking.checkOut),
         new Date(booking.checkIn),
-      )}
+      )+1}
       Day:
       <div className="ml-2 flex items-center gap-1">
         <svg

@@ -1,5 +1,6 @@
 const Place = require('../models/Place');
-
+const jwt = require('jsonwebtoken');
+const User = require('../models/User');
 // Adds a place in the DB
 exports.addPlace = async (req, res) => {
   try {
@@ -100,16 +101,35 @@ exports.updatePlace = async (req, res) => {
 };
 
 // Returns all the places in DB
+
 exports.getPlaces = async (req, res) => {
   try {
-    const places = await Place.find();
-    res.status(200).json({
-      places,
-    });
+    let places;
+    let user = null;
+
+    // Manually extract token (since middleware is not enforced)
+    const token = req.headers.authorization?.split(' ')[1];
+
+    if (token) {
+      try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        user = await User.findById(decoded.id).select('-password');
+      } catch (error) {
+        console.log('Invalid or expired token');
+      }
+    }
+
+    if (user) {
+      // User is logged in, exclude their own services
+      places = await Place.find({ owner: { $ne: user.id } });
+    } else {
+      // User is not logged in, show all places
+      places = await Place.find();
+    }
+
+    res.status(200).json({ places });
   } catch (err) {
-    res.status(500).json({
-      message: 'Internal server error',
-    });
+    res.status(500).json({ message: 'Internal server error' });
   }
 };
 
