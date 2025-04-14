@@ -52,19 +52,20 @@ const PlacePage = () => {
           </div>
           {/* Max number of guests: {place.maxGuests} */}
           <PerksWidget perks={place?.perks} />
+          <div className="-mx-8  bg-[#f0fff0] px-8 py-8">
+            <div>
+              <h2 className="mt-8 text-2xl font-semibold">Extra Info</h2>
+            </div>
+            <div className="mb-4 mt-2 text-sm leading-5 text-gray-700">
+              {place.extraInfo}
+            </div>
+          </div>
         </div>
         <div>
           <BookingWidget place={place} />
         </div>
       </div>
-      <div className="-mx-8 border-t bg-[#f0fff0] px-8 py-8">
-        <div>
-          <h2 className="mt-4 text-2xl font-semibold">Extra Info</h2>
-        </div>
-        <div className="mb-4 mt-2 text-sm leading-5 text-gray-700">
-          {place.extraInfo}
-        </div>
-      </div>
+
     </div>
   );
 };

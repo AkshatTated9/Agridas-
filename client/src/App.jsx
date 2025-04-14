@@ -22,6 +22,7 @@ import NotFoundPage from './pages/NotFoundPage';
 import ReceivedRequests from './pages/ReceivedRequests';
 import AboutUs from './pages/AboutUs';
 import ContactUs from './pages/ContactUs';
+import Support from './pages/Support';
 
 function App() {
   useEffect(() => {
@@ -52,6 +53,8 @@ function App() {
               />
               <Route path="/footer/aboutUs" element={<AboutUs />} />
               <Route path="/footer/ContactUs" element={<ContactUs />} />
+              <Route path="/footer/Support" element={<Support />} />
+              
               <Route path="*" element={<NotFoundPage />} />
               <Route path="/account/received-requests" element={<ReceivedRequests />} />
             </Route>

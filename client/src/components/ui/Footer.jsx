@@ -19,11 +19,11 @@ const Footer = () => {
                 Renting Process
               </span>
             </p>
-            <p>
-              <span className="cursor-pointer font-normal text-white decoration-1 underline-offset-1 hover:underline">
+
+            <Link className="cursor-pointer font-normal text-white decoration-1 underline-offset-1 hover:underline" to={'/footer/Support'}>
                 Safety Guidelines
-              </span>
-            </p>
+            </Link>
+
             <p>
               <span className="cursor-pointer font-normal text-white decoration-1 underline-offset-1 hover:underline">
                 Tool Maintenance Tips
