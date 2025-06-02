@@ -3,7 +3,7 @@ import React from 'react';
 const PerksWidget = ({ perks }) => {
   return (
     <div className="mt-4">
-      <hr className="mb-5 border" />
+      <hr className="mb-5 " />
       <p className="text-2xl font-semibold">What this tool offers</p>
 
       <div className="mt-4 grid flex-col gap-4 lg:grid-cols-2 lg:justify-items-stretch lg:gap-4">

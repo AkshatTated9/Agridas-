@@ -10,35 +10,68 @@ import axiosInstance from '@/utils/axios';
 const BookingsPage = () => {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState('requested'); // added active tab
 
-  useEffect(() => {
-    const getBookings = async () => {
-      try {
+ useEffect(() => {
+  const getBookings = async () => {
+    setLoading(true);
+    try {
+      if (activeTab === 'requested') {
+        const { data } = await axiosInstance.get('/bookings/requested');
+        setBookings(data.booking);
+      } else if (activeTab === 'accepted') {
         const { data } = await axiosInstance.get('/bookings');
         setBookings(data.booking);
-        setLoading(false);
-      } catch (error) {
-        console.log('Error: ', error);
-        setLoading(false);
       }
-    };
-    getBookings();
-  }, []);
+    } catch (error) {
+      console.log('Error: ', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  getBookings();
+}, [activeTab]);
+ 
   if (loading) return <Spinner />;
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col">
       <AccountNav />
+
+      {/* Booking Filter Buttons with activeTab color logic */}
+      <div className="flex justify-center gap-4 mt-6">
+        <button
+          onClick={() => setActiveTab('requested')}
+          className={`px-4 py-2 rounded-full font-semibold border ${
+            activeTab === 'requested'
+              ? 'bg-black text-white'
+              : 'bg-white text-black'
+          }`}
+        >
+          Requested Bookings
+        </button>
+        <button
+          onClick={() => {setActiveTab('accepted')}}
+          className={`px-4 py-2 rounded-full font-semibold border ${
+            activeTab === 'accepted'
+              ? 'bg-black text-white'
+              : 'bg-white text-black'
+          }`}
+        >
+          Accepted Bookings
+        </button>
+      </div>
+
       <div>
         {bookings?.length > 0 ? (
           bookings.map((booking) => (
             <Link
               to={`/account/bookings/${booking._id}`}
-              className="mx-4 my-8 flex h-28 gap-4 overflow-hidden rounded-2xl bg-gray-200 md:h-40 lg:mx-0"
+              className="mx-4 my-8 flex h-28 gap-4 overflow-hidden rounded-2xl bg-gray-200 md:h-40 lg:mx-80"
               key={booking._id}
             >
-              <div className="w-2/6 md:w-1/6">
+              <div className="w-1/6 md:w-2/6">
                 {booking?.place?.photos[0] && (
                   <PlaceImg
                     place={booking?.place}
@@ -55,7 +88,6 @@ const BookingsPage = () => {
                       booking={booking}
                       className="mb-2 mt-4 hidden items-center text-gray-600  md:flex"
                     />
-
                     <div className="my-2 flex items-center gap-1">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -82,15 +114,13 @@ const BookingsPage = () => {
           ))
         ) : (
           <div className="">
-            <div className="flex flex-col justify-start">
+            <div className="flex flex-col items-center">
               <h1 className="my-6 text-3xl font-semibold">Services</h1>
               <hr className="border border-gray-300" />
               <h3 className="pt-6 text-2xl font-semibold">
                 No services booked... yet!
               </h3>
-              <p>
-                Start your journey toward smarter farming today!
-              </p>
+              <p>Start your journey toward smarter farming today!</p>
               <Link to="/" className="my-4">
                 <div className="flex w-40 justify-center rounded-lg border border-black p-3 text-lg font-semibold hover:bg-gray-50">
                   Start Searching

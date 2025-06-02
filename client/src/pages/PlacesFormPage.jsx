@@ -14,6 +14,9 @@ const PlacesFormPage = () => {
   const [redirect, setRedirect] = useState(false);
   const [loading, setLoading] = useState(false);
   const [addedPhotos, setAddedPhotos] = useState([]);
+  const [otp, setOtp] = useState('');
+  const [generatedOtp, setGeneratedOtp] = useState(null);
+
 
   const [formData, setFormData] = useState({
     title: '',
@@ -24,9 +27,9 @@ const PlacesFormPage = () => {
     checkIn: '',
     checkOut: '',
     price: 500,
-    email: '',  
-    phone: '',  
-    maxLimit: '',    
+    email: '',
+    phone: '',
+    maxLimit: '',
   });
 
   const {
@@ -40,6 +43,7 @@ const PlacesFormPage = () => {
     phone,  // Destructure phone
     maxLimit,
   } = formData;
+
 
   const isValidPlaceData = () => {
     if (title.trim() === '') {
@@ -95,14 +99,14 @@ const PlacesFormPage = () => {
 
   const handleFormData = (e) => {
     const { name, value, type } = e.target;
-  
+
     if (type === 'checkbox') {
       setFormData((prevFormData) => {
         const currentPerks = prevFormData.perks || [];
         const updatedPerks = currentPerks.includes(name)
           ? currentPerks.filter((perk) => perk !== name)
           : [...currentPerks, name];
-  
+
         return { ...prevFormData, perks: updatedPerks };
       });
     } else {
@@ -112,7 +116,25 @@ const PlacesFormPage = () => {
       }));
     }
   };
-  
+
+
+
+  const sendOtp = () => {
+    const newOtp = Math.floor(100000 + Math.random() * 900000).toString();
+    setGeneratedOtp(newOtp);
+    toast.info(`OTP sent to your phone number: ${newOtp}`);
+  };
+
+  const validateOtp = () => {
+    if (otp === generatedOtp) {
+      toast.success('OTP verified successfully!');
+      savePlace();
+      // Proceed with saving data
+    } else {
+      toast.error('Invalid OTP, please try again!');
+    }
+  };
+
 
   useEffect(() => {
     if (!id) {
@@ -191,7 +213,7 @@ const PlacesFormPage = () => {
   return (
     <div className="p-4">
       <AccountNav />
-      <form onSubmit={savePlace}>
+      <form onSubmit={(e) => { e.preventDefault(); validateOtp();}}>
         {preInput(
           'Title',
           'Title for the services you provide, whether it is labor or machinery',
@@ -287,6 +309,32 @@ const PlacesFormPage = () => {
           placeholder="Enter phone number"
         />
 
+        <button
+          type="button"
+          onClick={sendOtp}
+          className="rounded-full bg-lime-500 py-2 px-10 text-sm font-semibold text-white"
+        >
+          Send OTP
+        </button>
+
+        {/* New Phone Field */}
+        {preInput('OTP', 'Enter valid otp')}
+        <input
+          type="number"
+          name="otp"
+          value={otp}
+          onChange={(e) => setOtp(e.target.value)}
+          placeholder="Enter OTP"
+        />
+
+        {/* <button
+          type="button"
+          onClick={sendOtp}
+          className="rounded-full bg-lime-500 py-2 px-10 text-sm font-semibold text-white"
+        >
+          Validate OTP
+        </button> */}
+
         <div className="flex justify-center gap-4">
           <button className="rounded-full bg-lime-500 py-3 px-20 text-xl font-semibold text-white">
             Save
@@ -307,3 +355,11 @@ const PlacesFormPage = () => {
 };
 
 export default PlacesFormPage;
+
+
+
+
+
+
+
+
