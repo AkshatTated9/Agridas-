@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import s_img2 from '../assets/support/s_img2.jpg';
 import s_img3 from '../assets/support/s_img3.jpeg';
 import s_img4 from '../assets/support/s_img4.jpeg';
 import s_img6 from '../assets/support/s_img6.jpeg';
 
 const Support = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
+    
     <div className=" text-white font-sans">
       <header
         className="relative h-screen bg-cover bg-center flex items-start justify-center mt-8"

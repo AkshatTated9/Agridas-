@@ -6,10 +6,12 @@ import { toast } from 'react-toastify';
 import { useAuth } from '../../../hooks';
 import axiosInstance from '@/utils/axios';
 import DatePickerWithRange from './DatePickerWithRange';
+import PaypalButton from './Paypalbutton';
 
 const BookingWidget = ({ place }) => {
   const [startDate, setStartDate] = useState(null);
   const [acreage, setAcreage] = useState('');
+  const [paymentMethod, setPaymentMethod] = useState('paypal'); // 👈 default
   const [bookingData, setBookingData] = useState({
     name: '',
     phone: '',
@@ -28,7 +30,6 @@ const BookingWidget = ({ place }) => {
     }
   }, [user]);
 
-  // Calculate end date based on acreage
   const calculateEndDate = () => {
     if (!startDate || !acreage) return null;
     const daysNeeded = Math.ceil(acreage / maxAcresPerDay);
@@ -39,7 +40,7 @@ const BookingWidget = ({ place }) => {
     setBookingData({ ...bookingData, [e.target.name]: e.target.value });
   };
 
-  const handleBooking = async () => {
+  const handleBooking = async (method = 'cod') => {
     if (!user) return setRedirect(`/login`);
     if (!startDate) return toast.error('Please select a start date');
     if (!acreage || acreage < 1) return toast.error('Enter valid acreage');
@@ -58,21 +59,18 @@ const BookingWidget = ({ place }) => {
         address,
         acreage,
         place: id,
-        price: acreage * price, // Price based on acreage
+        price: acreage * price,
+        paymentMethod: method, // 👈 specify payment method
       });
 
       if (response.data.success) {
-        setRedirect(`/account/bookings/${response.data.pendingBooking._id}`);
-        toast.success('Congratulations! Booking request sent.');
+        setRedirect(`/account/bookings`);
+        toast.success('Booking request sent.');
       }
     } catch (error) {
       console.error('Full Error Response:', error.response);
-      
+
       if (error.response) {
-        console.log('Error Status:', error.response.status);
-        console.log('Error Data:', error.response.data);
-        
-        // Check if backend explicitly returns date conflict
         if (error.response.status === 409) {
           toast.error(error.response.data.message || 'This date is already booked.');
         } else {
@@ -96,7 +94,7 @@ const BookingWidget = ({ place }) => {
       <div className="mt-4 rounded-2xl border p-4">
         <label>Select Start Date: </label>
         <DatePickerWithRange setDateRange={({ from }) => setStartDate(from)} />
-        
+
         <label>Enter Acreage: </label>
         <input
           type="number"
@@ -126,14 +124,56 @@ const BookingWidget = ({ place }) => {
 
         {startDate && acreage && (
           <p className="mt-2 text-lg text-gray-700">
-            Estimated completion date: <span className='font-mono'>{calculateEndDate()?.toDateString()}</span> 
+            Estimated completion date:{' '}
+            <span className="font-mono">{calculateEndDate()?.toDateString()}</span>
           </p>
         )}
       </div>
 
-      <button onClick={handleBooking} className="primary mt-4 hover:bg-lime-600">
-        Book this Service {acreage && <span> ₹{acreage * place.price}</span>}
-      </button>
+      {startDate && acreage && name && phone && address && (
+        <div className="mt-4">
+          <label className="block mb-1 font-semibold">Choose Payment Method:</label>
+          <div className="flex gap-4 mb-4">
+            <button
+              className={`border px-4 py-2 rounded ${
+                paymentMethod === 'paypal' ? 'bg-blue-600 text-white' : ''
+              }`}
+              onClick={() => setPaymentMethod('paypal')}
+            >
+              Pay with PayPal
+            </button>
+            <button
+              className={`border px-4 py-2 rounded ${
+                paymentMethod === 'cod' ? 'bg-green-600 text-white' : ''
+              }`}
+              onClick={() => setPaymentMethod('cod')}
+            >
+              Cash on Delivery
+            </button>
+          </div>
+
+          {paymentMethod === 'paypal' ? (
+            <PaypalButton
+              price={acreage * place.price}
+              bookingDetails={{
+                checkIn: startDate,
+                checkOut: calculateEndDate(),
+                name,
+                phone,
+                address,
+                acreage,
+                place: id,
+                price: acreage * price,
+              }}
+              onSuccess={(bookingId) => setRedirect(`/account/bookings/${bookingId}`)}
+            />
+          ) : (
+            <button onClick={() => handleBooking('cod')} className="primary w-full">
+              Book with Cash on Delivery ({`₹${acreage * place.price}`})
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 };

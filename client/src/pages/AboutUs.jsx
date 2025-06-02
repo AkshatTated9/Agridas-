@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import About_img1 from "../assets/AboutUs/About_img1.jpg"
 import About_img2 from "../assets/AboutUs/About_img2.jpg"
 import About_img3 from "../assets/AboutUs/About_img3.jpg"
@@ -10,6 +10,9 @@ import Expert_img3 from "../assets/AboutUs/Expert_img3.jpeg"
 import Expert_img4 from "../assets/AboutUs/Expert_img4.jpg"
 
 const AboutUs = () => {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+      }, []);
     return (
         <>
             <div className="mt-20 flex w-full flex-col border- justify-evenly gap-8 md:flex-row p-6">
