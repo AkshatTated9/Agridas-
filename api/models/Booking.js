@@ -35,6 +35,10 @@ const bookingSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  paymentMethod: {
+    type: String, 
+    required: true,
+  },
 });
 
 const Booking = mongoose.model("Booking", bookingSchema);

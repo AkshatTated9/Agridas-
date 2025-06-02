@@ -7,12 +7,15 @@ const {
   getBookings,
   approveBooking,
   getReceivedRequests,
-  disapproveBooking
+  disapproveBooking,
+  getUserRequestedBookings // <- newly added
 } = require('../controllers/bookingController');
 
-// Protected routes (user must be logged in)
+// Routes
 router.route('/').get(isLoggedIn, getBookings).post(isLoggedIn, createBookings);
 router.put('/approve/:bookingId', approveBooking);
 router.get('/received-requests', isLoggedIn, getReceivedRequests);
-router.delete('/disapprove/:bookingId',isLoggedIn, disapproveBooking);
+router.get('/requested', isLoggedIn, getUserRequestedBookings); // <-- added this line
+router.delete('/disapprove/:bookingId', isLoggedIn, disapproveBooking);
+
 module.exports = router;
