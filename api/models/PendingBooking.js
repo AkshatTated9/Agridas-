@@ -9,6 +9,10 @@ const PendingBookingSchema = new mongoose.Schema({
   phone: { type: String, required: true },
   address: { type: String, required: true },
   price: { type: Number, required: true },
+  paymentMethod: {
+  type: String,
+  required: true,
+},
 }, { timestamps: true });
 
 module.exports = mongoose.model('PendingBooking', PendingBookingSchema);

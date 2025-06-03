@@ -201,7 +201,7 @@ const twilioClient = twilio(
 exports.createBookings = async (req, res) => {
   try {
     const userData = req.user;
-    const { place, checkIn, checkOut, name, phone, address, price } = req.body;
+    const { place, checkIn, checkOut, name, phone, address, price ,paymentMethod} = req.body;
 
     // Convert check-in and check-out to Date objects
     const checkInDate = new Date(checkIn);
@@ -241,6 +241,7 @@ exports.createBookings = async (req, res) => {
       phone,
       address,
       price,
+      paymentMethod,
     });
 
     const placeDetails = await Place.findById(place);
@@ -261,6 +262,7 @@ A new booking request has been made on AGRICONNECT.
 - End Date: ${checkOutDate.toDateString()}
 - Total Price: ₹${price}
 - Address: ${address}
+- Payment Mode: ${paymentMethod}
 
 Please approve or reject the request in your dashboard.
 
@@ -310,7 +312,8 @@ exports.approveBooking = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Cannot approve. Service is already booked on selected dates.' });
     }
     // Move to Booking table
-    const booking = await Booking.create({ ...pendingBooking.toObject() });
+    const { _id, ...bookingData } = pendingBooking.toObject();
+    const booking = await Booking.create(bookingData);
 
     // Remove from pending table
     await PendingBookings.findByIdAndDelete(bookingId);
@@ -394,5 +397,21 @@ exports.disapproveBooking = async (req, res) => {
     res.status(200).json({ success: true, message: 'Booking request disapproved' });
   } catch (err) {
     res.status(500).json({ success: false, message: 'Internal server error', error: err.message });
+  }
+};
+
+exports.getUserRequestedBookings = async (req, res) => {
+  try {
+    const userId = req.user.id; // Logged-in user's ID
+
+    // Fetch all pending bookings where the user is the one who booked
+    const requestedBookings = await PendingBookings.find({ user: userId })
+      .populate('place', 'title price photos') // populate place info
+      .populate('user', 'name phone'); // optionally include user's own info
+
+    res.status(200).json({ success: true, booking: requestedBookings });
+  } catch (error) {
+    console.error('Error in getRequestedBookings:', error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
   }
 };

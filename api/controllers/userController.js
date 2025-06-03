@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs')
 const cloudinary = require('cloudinary').v2;
 
 
-// Register/SignUp user
+// Register
 exports.register = async (req, res) => {
   try {
     const { name, email, password } = req.body;
